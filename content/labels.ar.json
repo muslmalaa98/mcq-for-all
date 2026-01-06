@@ -1,0 +1,16 @@
+{
+  "colleges": {
+    "medicine": "الطب",
+    "pharmacy": "الصيدلة",
+    "dentistry": "طب الأسنان"
+  },
+  "terms": {
+    "term-1": "كورس أول",
+    "term-2": "كورس ثاني"
+  },
+  "subjects": {
+    "medicine/stage-1/term-1/biochemistry": "الكيمياء الحيوية",
+    "pharmacy/stage-1/term-1/pharmacology": "علم الأدوية",
+    "dentistry/stage-1/term-1/anatomy": "التشريح"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "meta": {
+    "version": 1,
+    "generatedAt": "2026-01-06T20:05:37.048Z",
+    "college": "medicine",
+    "stage": "stage-1",
+    "term": "term-1",
+    "subject": "biochemistry",
+    "title": {
+      "ar": "الكيمياء الحيوية",
+      "en": "Biochemistry"
+    },
+    "count": 2,
+    "optionalColumnsSeen": [
+      "explanation",
+      "reference",
+      "difficulty",
+      "tags"
+    ]
+  },
+  "questions": [
+    {
+      "id": 1,
+      "question": "H~2~O is also called:",
+      "options": [
+        "Water",
+        "Hydrogen peroxide",
+        "Oxygen",
+        "Salt"
+      ],
+      "answerIndex": 0,
+      "explanation": "H~2~O is water.",
+      "reference": "Chem basics",
+      "difficulty": "easy",
+      "tags": [
+        "chemistry",
+        "basics"
+      ]
+    },
+    {
+      "id": 2,
+      "question": "Which is a correct notation?",
+      "options": [
+        "x^2^",
+        "x~2~",
+        "x**2",
+        "x^^2^^"
+      ],
+      "answerIndex": 0,
+      "explanation": "Superscript uses ^...^",
+      "reference": "Notation",
+      "difficulty": "easy",
+      "tags": [
+        "notation"
+      ]
+    }
+  ]
+}

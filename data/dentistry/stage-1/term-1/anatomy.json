@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "version": 1,
+    "generatedAt": "2026-01-06T20:05:37.046Z",
+    "college": "dentistry",
+    "stage": "stage-1",
+    "term": "term-1",
+    "subject": "anatomy",
+    "title": {
+      "ar": "التشريح",
+      "en": "Anatomy"
+    },
+    "count": 2,
+    "optionalColumnsSeen": [
+      "explanation",
+      "reference"
+    ]
+  },
+  "questions": [
+    {
+      "id": 1,
+      "question": "How many teeth in adult human?",
+      "options": [
+        "20",
+        "24",
+        "28",
+        "32"
+      ],
+      "answerIndex": 3,
+      "explanation": "Adult dentition is 32 (including wisdom teeth).",
+      "reference": "Basic Anatomy"
+    },
+    {
+      "id": 2,
+      "question": "Which is a bone?",
+      "options": [
+        "Enamel",
+        "Dentin",
+        "Mandible",
+        "Pulp"
+      ],
+      "answerIndex": 2,
+      "explanation": "Mandible is a bone.",
+      "reference": "Oral anatomy"
+    }
+  ]
+}

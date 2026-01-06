@@ -1,0 +1,114 @@
+{
+  "version": 1,
+  "generatedAt": "2026-01-06T20:05:37.043Z",
+  "colleges": [
+    {
+      "slug": "dentistry",
+      "title": {
+        "ar": "طب الأسنان",
+        "en": "Dentistry"
+      },
+      "stages": [
+        {
+          "slug": "stage-1",
+          "title": {
+            "ar": "المرحلة 1",
+            "en": "Stage 1"
+          },
+          "terms": [
+            {
+              "slug": "term-1",
+              "title": {
+                "ar": "كورس أول",
+                "en": "Term 1"
+              },
+              "subjects": [
+                {
+                  "slug": "anatomy",
+                  "title": {
+                    "ar": "التشريح",
+                    "en": "Anatomy"
+                  },
+                  "count": 2,
+                  "path": "dentistry/stage-1/term-1/anatomy.json"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "medicine",
+      "title": {
+        "ar": "الطب",
+        "en": "Medicine"
+      },
+      "stages": [
+        {
+          "slug": "stage-1",
+          "title": {
+            "ar": "المرحلة 1",
+            "en": "Stage 1"
+          },
+          "terms": [
+            {
+              "slug": "term-1",
+              "title": {
+                "ar": "كورس أول",
+                "en": "Term 1"
+              },
+              "subjects": [
+                {
+                  "slug": "biochemistry",
+                  "title": {
+                    "ar": "الكيمياء الحيوية",
+                    "en": "Biochemistry"
+                  },
+                  "count": 2,
+                  "path": "medicine/stage-1/term-1/biochemistry.json"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "pharmacy",
+      "title": {
+        "ar": "الصيدلة",
+        "en": "Pharmacy"
+      },
+      "stages": [
+        {
+          "slug": "stage-1",
+          "title": {
+            "ar": "المرحلة 1",
+            "en": "Stage 1"
+          },
+          "terms": [
+            {
+              "slug": "term-1",
+              "title": {
+                "ar": "كورس أول",
+                "en": "Term 1"
+              },
+              "subjects": [
+                {
+                  "slug": "pharmacology",
+                  "title": {
+                    "ar": "علم الأدوية",
+                    "en": "Pharmacology"
+                  },
+                  "count": 2,
+                  "path": "pharmacy/stage-1/term-1/pharmacology.json"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

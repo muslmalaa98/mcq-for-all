@@ -1,14 +1,22 @@
 {
   "name": "mcq-for-all",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "data:build": "node scripts/data-build.mjs",
+    "data:validate": "node scripts/data-validate.mjs",
+    "data:watch": "node scripts/data-watch.mjs",
+    "pdf:subject": "node scripts/pdf-subject.mjs",
+    "build": "vite build && node scripts/postbuild-mcq.mjs",
     "preview": "vite preview"
   },
   "devDependencies": {
-    "vite": "^7.2.4"
+    "vite": "^7.3.0"
+  },
+  "dependencies": {
+    "csv-parse": "^5.6.0",
+    "pdf-lib": "^1.17.1"
   }
 }
