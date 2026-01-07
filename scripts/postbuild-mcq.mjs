@@ -4,6 +4,9 @@ import path from "node:path";
 const distDir = path.resolve("dist");
 const mcqDir = path.join(distDir, "mcq");
 
+// ملفات لازم تبقى بجذر dist لأن Cloudflare Pages يقراها من هناك
+const KEEP_IN_DIST_ROOT = new Set(["_redirects", "_headers"]);
+
 async function exists(p) {
   try {
     await fs.access(p);
@@ -14,7 +17,9 @@ async function exists(p) {
 }
 
 async function move(src, dest) {
-  // remove destination if exists (safe)
+  // تأكد إن مجلد وجهة النقل موجود
+  await fs.mkdir(path.dirname(dest), { recursive: true });
+
   if (await exists(dest)) {
     await fs.rm(dest, { recursive: true, force: true });
   }
@@ -22,37 +27,45 @@ async function move(src, dest) {
 }
 
 async function main() {
-  // ensure dist exists
   if (!(await exists(distDir))) {
-    console.error("postbuild-mcq: dist folder not found. Run vite build first.");
+    console.error("postbuild: dist folder not found. Run vite build first.");
     process.exit(1);
   }
 
-  // ensure dist/mcq exists
   await fs.mkdir(mcqDir, { recursive: true });
 
-  // Move everything from dist root into dist/mcq
-  // EXCEPT:
-  // - "mcq" folder itself (destination)
-  // - "_redirects" (must stay at dist/_redirects for Cloudflare Pages)
+  // انقل كل شي من dist إلى dist/mcq ما عدا:
+  // - مجلد mcq نفسه
+  // - _redirects / _headers
   const entries = await fs.readdir(distDir, { withFileTypes: true });
 
   for (const ent of entries) {
     const name = ent.name;
-
     if (name === "mcq") continue;
-    if (name === "_redirects") continue;
+    if (KEEP_IN_DIST_ROOT.has(name)) continue;
 
     const from = path.join(distDir, name);
     const to = path.join(mcqDir, name);
-
     await move(from, to);
   }
 
-  console.log("postbuild-mcq: moved build output into dist/mcq (kept dist/_redirects intact)");
+  // إذا ماكو _redirects (مثلاً ناسي تحطه بـ public)، نولده هنا كـ fallback
+  const redirectsPath = path.join(distDir, "_redirects");
+  if (!(await exists(redirectsPath))) {
+    const redirects = [
+      "/      /mcq/            302",
+      "/mcq   /mcq/            301",
+      "/mcq/* /mcq/index.html  200",
+      "",
+    ].join("\n");
+    await fs.writeFile(redirectsPath, redirects, "utf8");
+    console.log("postbuild: created dist/_redirects (fallback)");
+  }
+
+  console.log("postbuild: moved build output into dist/mcq (kept _redirects in dist root)");
 }
 
 main().catch((e) => {
-  console.error("postbuild-mcq error:", e);
+  console.error("postbuild error:", e);
   process.exit(1);
 });
