@@ -14,32 +14,24 @@ import { el, mount, setText } from "../lib/ui.js";
 export function bootApp(root) {
   initTheme();
 
-  const BASE = import.meta.env.BASE_URL; // expected: "/mcq/"
+  const BASE = import.meta.env.BASE_URL; // expected "/mcq/"
 
   const app = el("div", { class: "app" });
 
-  // Header
   const header = el(
     "header",
     { class: "topbar" },
 
-    // Brand (go home)
     el(
       "a",
-      {
-        class: "brand",
-        href: BASE, // "/mcq/"
-        "data-link": "1",
-        "aria-label": "MCQ Home",
-      },
-      // IMPORTANT: root icon to avoid /mcq route issues in dev
-      el("img", { class: "brand__icon", src: "/app-icon.svg", alt: "" }),
+      { class: "brand", href: BASE, "data-link": "1", "aria-label": "MCQ Home" },
+      // IMPORTANT: base-aware icon (do NOT use /app-icon.svg)
+      el("img", { class: "brand__icon", src: `${BASE}app-icon.svg`, alt: "" }),
       el("span", { class: "brand__text" }, "MCQ")
     ),
 
     el("div", { class: "topbar__spacer" }),
 
-    // Theme toggle
     el(
       "button",
       {
@@ -59,7 +51,6 @@ export function bootApp(root) {
   app.append(header, breadcrumb, hint, main);
   mount(root, app);
 
-  // Theme toggle handler
   document.getElementById("themeToggle")?.addEventListener("click", toggleTheme);
 
   // SPA link interception
@@ -67,12 +58,10 @@ export function bootApp(root) {
     const a = e.target?.closest?.("a[data-link]");
     if (!a) return;
     if (a.target === "_blank") return;
-
     e.preventDefault();
     router.navigate(a.getAttribute("href"));
   });
 
-  // Router
   const router = createRouter({
     base: BASE,
     onRoute: async (route) => {
@@ -80,7 +69,6 @@ export function bootApp(root) {
         const index = await loadIndex();
         const view = await resolveView(route, index);
 
-        // breadcrumb
         breadcrumb.innerHTML = "";
         const crumbs = getBreadcrumb(index, route);
         crumbs.forEach((c, i) => {
@@ -89,31 +77,22 @@ export function bootApp(root) {
           if (i < crumbs.length - 1) breadcrumb.append(el("span", { class: "crumb__sep" }, "›"));
         });
 
-        // mount view
         main.innerHTML = "";
         main.append(view.node);
 
-        // title
         setText(document.querySelector("title"), view.title ? `mcq for all — ${view.title}` : "mcq for all");
       } catch (err) {
-        // show friendly error instead of blank screen
         breadcrumb.innerHTML = "";
         main.innerHTML = "";
-
         main.append(
           el(
             "div",
             { class: "card" },
             el("div", { class: "card__title" }, "حدث خطأ أثناء تحميل البيانات"),
             el("p", { class: "muted ltr" }, String(err?.message || err)),
-            el(
-              "a",
-              { class: "btn", href: BASE, "data-link": "1" },
-              "العودة للرئيسية"
-            )
+            el("a", { class: "btn", href: BASE, "data-link": "1" }, "العودة للرئيسية")
           )
         );
-
         setText(document.querySelector("title"), "mcq for all — خطأ");
       }
     },
@@ -146,12 +125,7 @@ async function resolveView(route, index) {
   }
 
   if (seg.length === 4) {
-    const node = getNodeBySlugs(index, {
-      college: seg[0],
-      stage: seg[1],
-      term: seg[2],
-      subject: seg[3],
-    });
+    const node = getNodeBySlugs(index, { college: seg[0], stage: seg[1], term: seg[2], subject: seg[3] });
     if (!node) return pageNotFound();
     return pageReader(node);
   }

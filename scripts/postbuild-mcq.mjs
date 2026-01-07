@@ -34,18 +34,16 @@ async function main() {
   for (const ent of entries) {
     const name = ent.name;
     if (name === "mcq") continue;
-    if (name === "_redirects") continue;
+    if (name === "_redirects") continue; // keep dist/_redirects from public/_redirects
 
     const from = path.join(distDir, name);
     const to = path.join(mcqDir, name);
     await move(from, to);
   }
 
-  // Cloudflare Pages SPA routing
-  const redirects = ["/mcq /mcq/index.html 200", "/mcq/* /mcq/index.html 200", ""].join("\n");
-  await fs.writeFile(path.join(distDir, "_redirects"), redirects, "utf8");
-
-  console.log("postbuild: moved build output into dist/mcq and generated dist/_redirects");
+  // DO NOT write dist/_redirects here.
+  // Redirect rules should live in public/_redirects only.
+  console.log("postbuild: moved build output into dist/mcq (kept dist/_redirects from public/_redirects)");
 }
 
 main().catch((e) => {
