@@ -124,6 +124,13 @@ img{ max-width: 100%; display: block; }
   border-radius: var(--r);
   padding: var(--s3);
 }
+
+/* (طلبك) خلي مستطيل "mcq for all" مختلف عن باقي المربعات */
+.page__head{
+  background: color-mix(in srgb, var(--primary) 10%, var(--surface));
+  border-color: color-mix(in srgb, var(--primary) 30%, var(--border));
+}
+
 .h1{
   margin: 0 0 6px 0;
   font-size: 22px;
@@ -138,6 +145,12 @@ img{ max-width: 100%; display: block; }
   grid-template-columns: repeat(1, minmax(0, 1fr));
   gap: var(--s2);
 }
+
+/* (طلبك) نزّل المربعات شوي لتحت */
+.grid{
+  margin-top: 18px;
+}
+
 @media (min-width: 720px){
   .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
@@ -149,14 +162,35 @@ img{ max-width: 100%; display: block; }
   box-shadow: var(--shadow2);
   padding: var(--s3);
 }
+
 .card--link{
   transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
 }
+
+/* (طلبك) خليه بالمنتصف داخل المربع */
+.card--link{
+  text-align: center;
+}
+
+/* (طلبك) خلي "طب/صيدلة/طب الأسنان" أكبر وأوضح */
+.card--link .card__title{
+  font-weight: 900;
+  font-size: 22px;
+}
+.card--link .card__meta{
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 14px;
+  opacity: 0.85;
+}
+
 .card--link:hover{
   transform: translateY(-1px);
   box-shadow: var(--shadow);
   border-color: color-mix(in srgb, var(--primary) 35%, var(--border));
 }
+
+/* Keep defaults for non-link cards (if any) */
 .card__title{ font-weight: 800; font-size: 18px; }
 .card__meta{ margin-top: 6px; color: var(--muted); }
 
@@ -199,12 +233,8 @@ img{ max-width: 100%; display: block; }
 }
 .btn--primary:hover{ background: var(--primaryHover); }
 
-.btn--subtle{
-  background: var(--surface2);
-}
-.btn--ghost{
-  background: transparent;
-}
+.btn--subtle{ background: var(--surface2); }
+.btn--ghost{ background: transparent; }
 
 .btn--small{
   padding: 8px 10px;
