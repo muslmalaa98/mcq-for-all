@@ -41,8 +41,18 @@ async function main() {
     await move(from, to);
   }
 
-  // Cloudflare Pages SPA routing
-  const redirects = ["/mcq /mcq/index.html 200", "/mcq/* /mcq/index.html 200", ""].join("\n");
+  // Cloudflare Pages routing (redirect + SPA rewrite)
+  // 1) root -> /mcq/
+  // 2) /mcq -> /mcq/ (important)
+  // 3) any deep route under /mcq/ -> serve /mcq/index.html
+  const redirects =
+    [
+      "/ /mcq/ 302",
+      "/mcq /mcq/ 302",
+      "/mcq/* /mcq/index.html 200",
+      "",
+    ].join("\n");
+
   await fs.writeFile(path.join(distDir, "_redirects"), redirects, "utf8");
 
   console.log("postbuild: moved build output into dist/mcq and generated dist/_redirects");
