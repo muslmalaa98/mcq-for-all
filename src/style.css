@@ -1,96 +1,436 @@
+/* =========================================
+   mcq for all — App Styles (RTL + Design System)
+   ========================================= */
+
+/* ---------- Design System ---------- */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* typography */
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans Arabic", "Noto Sans", sans-serif;
+  line-height: 1.55;
+
+  /* layout */
+  --radius: 16px;
+  --radius-sm: 12px;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --shadow-sm: 0 6px 18px rgba(0, 0, 0, 0.08);
+
+  /* Design system vars (LIGHT defaults) */
+  --bg: #f7f8fb;
+  --surface: #ffffff;
+  --surface2: #f1f3f9;
+  --text: #0d1220;
+  --muted: #667085;
+  --border: rgba(16, 24, 40, 0.12);
+
+  --primary: #2b66ff;
+  --primaryHover: #1f55ea;
+  --success: #22a06b;
+  --danger: #d94b4b;
+  --focusRing: rgba(43, 102, 255, 0.35);
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+/* Dark theme via data-theme="dark" on <html> */
+html[data-theme="dark"] {
+  --bg: #0b1220;
+  --surface: #0f1a2f;
+  --surface2: #13213b;
+  --text: #eef2ff;
+  --muted: #a8b0c2;
+  --border: rgba(238, 242, 255, 0.14);
+
+  --primary: #5b8cff;
+  --primaryHover: #7aa3ff;
+  --success: #37c98d;
+  --danger: #ff6b6b;
+  --focusRing: rgba(91, 140, 255, 0.35);
 }
-a:hover {
-  color: #535bf2;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  background: var(--bg);
+  color: var(--text);
+  direction: rtl;
 }
 
 #app {
-  max-width: 1280px;
+  min-height: 100vh;
+}
+
+/* ---------- Utilities ---------- */
+.muted { color: var(--muted); }
+.ltr {
+  direction: ltr;
+  unicode-bidi: plaintext;
+  text-align: left;
+}
+
+/* ---------- App shell ---------- */
+.app {
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 16px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.topbar__spacer { flex: 1; }
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  text-decoration: none;
+  color: inherit;
+}
+
+.brand__icon {
+  width: 34px;
+  height: 34px;
+  display: block;
+}
+
+.brand__text {
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  font-size: 18px;
+}
+
+/* ---------- Breadcrumb ---------- */
+.crumb {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.crumb__link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 650;
+}
+
+.crumb__link:hover {
+  text-decoration: underline;
+}
+
+.crumb__sep {
+  color: var(--muted);
+}
+
+/* ---------- Hint (portrait small) ---------- */
+.hint-landscape {
+  display: none;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px dashed var(--border);
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  color: var(--muted);
+  font-weight: 600;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #f7df1eaa);
+@media (max-width: 640px) and (orientation: portrait) {
+  .hint-landscape { display: block; }
 }
 
+/* ---------- Main ---------- */
+.main {
+  margin-top: 12px;
+}
+
+/* ---------- Cards ---------- */
 .card {
-  padding: 2em;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 16px;
 }
 
-.read-the-docs {
-  color: #888;
+.card__title {
+  font-size: 20px;
+  font-weight: 850;
+  margin: 0 0 8px 0;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+.card__subtitle {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* link card */
+.card--link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+}
+.card--link:hover {
+  transform: translateY(-2px);
+  border-color: rgba(43, 102, 255, 0.35);
+  box-shadow: var(--shadow);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  border: 1px solid var(--border);
+  background: var(--primary);
+  color: #fff;
+  font-weight: 750;
+  border-radius: 14px;
+  padding: 10px 14px;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
+  user-select: none;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.btn:hover { background: var(--primaryHover); }
+.btn:active { transform: translateY(1px); }
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--text);
+}
+.btn--ghost:hover {
+  background: var(--surface2);
+}
+
+.btn:focus,
+.btn:focus-visible,
+a:focus,
+a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--focusRing);
+  border-color: rgba(43, 102, 255, 0.35);
+}
+
+/* ---------- Simple grid lists ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- Reader blocks (Question + Options) ---------- */
+.reader {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  .reader { grid-template-columns: 1fr; }
+}
+
+.reader__main,
+.reader__aside {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Question box */
+.qbox {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.qbox__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-weight: 650;
+  margin-bottom: 10px;
+}
+
+.qbox__question {
+  font-size: 1.15rem;
+  font-weight: 750;
+  margin: 0;
+}
+
+/* Options list container */
+.options {
+  display: grid;
+  gap: 10px;
+}
+
+/* =========================================================
+   ✅ YOUR REQUEST: Option text centered + bigger
+   Works for common class names used in the app
+   ========================================================= */
+
+/* Option button/card */
+.option,
+.choice {
+  width: 100%;
+  text-align: right; /* container is RTL */
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 18px 16px;
+
+  display: flex;
+  align-items: center;       /* ✅ vertical center */
+  gap: 12px;
+
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+}
+
+.option:hover,
+.choice:hover {
+  transform: translateY(-1px);
+  border-color: rgba(43, 102, 255, 0.35);
+}
+
+.option:active,
+.choice:active {
+  transform: translateY(0px);
+}
+
+.option[disabled],
+.choice[disabled] {
+  opacity: 0.85;
+  cursor: not-allowed;
+}
+
+/* A/B/C/D badge */
+.option__badge,
+.choice__badge,
+.option__key,
+.choice__key {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 46px;
+
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+
+  font-weight: 850;
+  color: var(--text);
+}
+
+/* Text inside option */
+.option__text,
+.choice__text,
+.option__label,
+.choice__label {
+  /* ✅ bigger + middle alignment */
+  font-size: 1.12rem;
+  line-height: 1.35;
+  font-weight: 550;          /* ✅ less bold than before */
+  align-self: center;
+}
+
+/* Make the English content LTR inside option text */
+.option__text.ltr,
+.choice__text.ltr,
+.option__label.ltr,
+.choice__label.ltr {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: plaintext;
+}
+
+/* Correct / Wrong states (support multiple class names) */
+.choice--correct,
+.option--correct,
+.is-correct {
+  border-color: rgba(34, 160, 107, 0.55);
+  background: rgba(34, 160, 107, 0.10);
+}
+.choice--wrong,
+.option--wrong,
+.is-wrong {
+  border-color: rgba(217, 75, 75, 0.55);
+  background: rgba(217, 75, 75, 0.10);
+}
+
+/* Reveal correct answer after wrong */
+.is-reveal-correct,
+.choice--reveal-correct,
+.option--reveal-correct {
+  border-color: rgba(34, 160, 107, 0.55);
+  background: rgba(34, 160, 107, 0.10);
+}
+
+/* ---------- Progress bar ---------- */
+.progress {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--surface2);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.progress__bar {
+  height: 100%;
+  width: 0%;
+  background: var(--primary);
+  transition: width 160ms ease;
+}
+
+/* ---------- Small text tweaks for phones ---------- */
+@media (max-width: 560px) {
+  .app { padding: 12px; }
+  .option,
+  .choice { padding: 16px 14px; }
+  .option__text,
+  .choice__text,
+  .option__label,
+  .choice__label { font-size: 1.08rem; }
 }
