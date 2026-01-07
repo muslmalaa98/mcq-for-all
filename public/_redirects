@@ -1,3 +1,16 @@
-/      /mcq/          302
-/mcq   /mcq/          301
-/mcq/* /mcq/index.html 200
+# redirect root to the app folder
+/       /mcq/ 302
+/mcq    /mcq/ 301
+
+# IMPORTANT:
+# redirects are always followed + order matters, so we must "allow" real files first
+/mcq/assets/*     /mcq/assets/:splat 200
+/mcq/data/*       /mcq/data/:splat 200
+/mcq/favicon.svg  /mcq/favicon.svg 200
+/mcq/app-icon.svg /mcq/app-icon.svg 200
+/mcq/vite.svg     /mcq/vite.svg 200
+/mcq/index.html   /mcq/index.html 200
+
+# SPA fallback (deep links)
+/mcq/   /mcq/index.html 200
+/mcq/*  /mcq/index.html 200

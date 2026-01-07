@@ -14,6 +14,7 @@ async function exists(p) {
 }
 
 async function move(src, dest) {
+  // remove destination if exists (safe)
   if (await exists(dest)) {
     await fs.rm(dest, { recursive: true, force: true });
   }
@@ -21,34 +22,37 @@ async function move(src, dest) {
 }
 
 async function main() {
+  // ensure dist exists
   if (!(await exists(distDir))) {
-    console.error("postbuild: dist folder not found. Run vite build first.");
+    console.error("postbuild-mcq: dist folder not found. Run vite build first.");
     process.exit(1);
   }
 
+  // ensure dist/mcq exists
   await fs.mkdir(mcqDir, { recursive: true });
 
-  // Move everything from dist root into dist/mcq except the mcq folder and _redirects
+  // Move everything from dist root into dist/mcq
+  // EXCEPT:
+  // - "mcq" folder itself (destination)
+  // - "_redirects" (must stay at dist/_redirects for Cloudflare Pages)
   const entries = await fs.readdir(distDir, { withFileTypes: true });
 
   for (const ent of entries) {
     const name = ent.name;
+
     if (name === "mcq") continue;
-    if (name === "_redirects") continue; // keep dist/_redirects from public/_redirects
+    if (name === "_redirects") continue;
 
     const from = path.join(distDir, name);
     const to = path.join(mcqDir, name);
+
     await move(from, to);
   }
 
-  // Cloudflare Pages SPA routing
-  const redirects = ["/mcq /mcq/index.html 200", "/mcq/* /mcq/index.html 200", ""].join("\n");
-  await fs.writeFile(path.join(distDir, "_redirects"), redirects, "utf8");
-
-  console.log("postbuild: moved build output into dist/mcq and generated dist/_redirects");
+  console.log("postbuild-mcq: moved build output into dist/mcq (kept dist/_redirects intact)");
 }
 
 main().catch((e) => {
-  console.error("postbuild error:", e);
+  console.error("postbuild-mcq error:", e);
   process.exit(1);
 });
